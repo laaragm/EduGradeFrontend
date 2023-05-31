@@ -1,13 +1,13 @@
+import { useRouter } from "next/router";
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
+import { PATHS } from "@/routes";
 import { Page } from "@/modules/shared/components";
 import { Wrapper } from "./styles";
-import { useRouter } from "next/router";
-import { PATHS } from "@/routes";
 
 export function HomeView() {
     const router = useRouter();

@@ -54,7 +54,8 @@ const BaseRequest = async <T>(requestParams: BaseRequestParams): Promise<IServic
 
     try {
         const response = await PerformRequest({ httpMethod, defaultErrorMessage, route, body, config });
-        if (response?.status === HttpStatusCodesEnum.success) {
+        const requestWasSuccessful = response && response.status.toString().startsWith("2");
+        if (requestWasSuccessful) {
             resultFormatted.result = response.data;
         } else {
             resultFormatted.error = true;

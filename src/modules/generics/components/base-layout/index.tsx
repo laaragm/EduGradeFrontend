@@ -20,7 +20,7 @@ export function BaseLayout({ children }: BaseLayoutProps) {
             <ScrollToTop />
             {router.isReady && <Header />}
             {children}
-            <Typography variant="body1" component="div">
+            <Typography variant="body4" component="div">
                 <ToastContainer position="bottom-right" autoClose={3000} closeOnClick pauseOnHover />
             </Typography>
         </ThemeConfig>
