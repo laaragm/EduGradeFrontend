@@ -53,9 +53,7 @@ export function CustomDialog({
             aria-describedby="alert-dialog-slide">
             {header && <DialogContent>{header}</DialogContent>}
             <DialogTitle>
-                <Typography variant="h4" color="text.secondary" fontWeight="bold" textTransform="uppercase">
-                    {title}
-                </Typography>
+                <Typography variant="h5">{title}</Typography>
                 {closeIcon && (
                     <IconButton
                         aria-label="close"
@@ -71,7 +69,7 @@ export function CustomDialog({
                 )}
             </DialogTitle>
             <DialogContent>
-                <DialogContentText id="alert-dialog-slide">{text}</DialogContentText>
+                <Typography variant="body4">{text}</Typography>
                 {children && children}
             </DialogContent>
             {actions && <DialogActions>{actions}</DialogActions>}
