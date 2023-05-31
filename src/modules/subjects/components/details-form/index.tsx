@@ -1,25 +1,31 @@
 import { useState } from "react";
 
-import { ITeacher } from "@/modules/teachers/models";
+import { ISubject } from "@/modules/subjects/models";
 import { handleResponse } from "@/modules/shared/utils";
-import { FieldType, IFormField } from "@/modules/shared/models";
 import { GenericForm } from "@/modules/shared/components";
-import { useCreateTeacher, useUpdateTeacher } from "@/modules/teachers/hooks";
+import { useUpdateSubject, useCreateSubject } from "@/modules/subjects/hooks";
+import { FieldType, IFormField, ISimplifiedTeacher } from "@/modules/shared/models";
 
 interface DetailsFormProps {
-    item?: ITeacher;
+    item?: ISubject;
+    teachers: ISimplifiedTeacher[];
     onCancel: () => void;
 }
 
-export function DetailsForm({ item, onCancel }: DetailsFormProps) {
-    const { mutation: create } = useCreateTeacher();
-    const { mutation: update } = useUpdateTeacher();
+export function DetailsForm({ item, teachers, onCancel }: DetailsFormProps) {
+    const { mutation: create } = useCreateSubject();
+    const { mutation: update } = useUpdateSubject();
     const [isLoading, setIsLoading] = useState(false);
 
     const fields: IFormField[] = [
         { name: "name", label: "Nome", type: FieldType.Text, defaultValue: item?.name },
-        { name: "cpf", label: "CPF", type: FieldType.Text, defaultValue: item?.cpf },
-        { name: "expertiseAreas", label: "Áreas de atuação", type: FieldType.Text, defaultValue: item?.expertiseAreas },
+        {
+            name: "teacher",
+            label: "Professor",
+            type: FieldType.Select,
+            defaultValue: item?.teacher?.name,
+            options: teachers,
+        },
     ];
 
     const onSubmit = async (data: any, reset: () => void) => {

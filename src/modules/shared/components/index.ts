@@ -1,5 +1,6 @@
 export * from "./custom-button";
 export * from "./custom-dialog";
+export * from "./custom-select";
 export * from "./custom-table";
 export * from "./generic-form";
 export * from "./loading-screen";

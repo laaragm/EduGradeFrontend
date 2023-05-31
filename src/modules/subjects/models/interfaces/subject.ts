@@ -1,8 +1,18 @@
-import { ISimplifiedGrade } from "@/modules/shared/models";
+import { ISimplifiedGrade, ISimplifiedTeacher } from "@/modules/shared/models";
 
 export interface ISubject {
     id: number;
     name: string;
-    teacherId: number;
+    teacher: ISimplifiedTeacher;
     grades: ISimplifiedGrade[];
+}
+
+export interface ISubjects {
+    data: ISubject[];
+}
+
+export interface IDataTableSubject {
+    id: number;
+    name: string;
+    teacherName: string;
 }

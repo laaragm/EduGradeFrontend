@@ -4,6 +4,7 @@ import { IStudent } from "@/modules/students/models";
 import { handleResponse } from "@/modules/shared/utils";
 import { GenericForm } from "@/modules/shared/components";
 import { useCreateStudent, useUpdateStudent } from "@/modules/students/hooks";
+import { FieldType, IFormField } from "@/modules/shared/models";
 
 interface DetailsFormProps {
     item?: IStudent;
@@ -15,12 +16,17 @@ export function DetailsForm({ item, onCancel }: DetailsFormProps) {
     const { mutation: update } = useUpdateStudent();
     const [isLoading, setIsLoading] = useState(false);
 
-    const fields = [
-        { name: "name", label: "Nome", defaultValue: item?.name },
-        { name: "email", label: "Email", defaultValue: item?.email },
-        { name: "phoneNumber", label: "Telefone", defaultValue: item?.phoneNumber },
-        { name: "registrationNumber", label: "Matrícula", defaultValue: item?.registrationNumber },
-        { name: "address", label: "Endereço", defaultValue: item?.address },
+    const fields: IFormField[] = [
+        { name: "name", label: "Nome", type: FieldType.Text, defaultValue: item?.name },
+        { name: "email", label: "Email", type: FieldType.Text, defaultValue: item?.email },
+        { name: "phoneNumber", label: "Telefone", type: FieldType.Text, defaultValue: item?.phoneNumber },
+        {
+            name: "registrationNumber",
+            label: "Matrícula",
+            type: FieldType.Text,
+            defaultValue: item?.registrationNumber,
+        },
+        { name: "address", label: "Endereço", type: FieldType.Text, defaultValue: item?.address },
     ];
 
     const onSubmit = async (data: any, reset: () => void) => {

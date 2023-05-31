@@ -5,19 +5,18 @@ import { useForm, Controller } from "react-hook-form";
 
 import { CustomButton } from "../custom-button";
 import { CustomTextField } from "../custom-text-field";
-
-interface FormField {
-    name: string;
-    label: string;
-    defaultValue?: string | number | boolean;
-}
+import { FieldType, IFormField } from "@/modules/shared/models";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
+import { CustomSelect } from "../custom-select";
 
 interface Form {
     [key: string]: string | number | boolean;
 }
 
 interface GenericFormProps {
-    fields: FormField[];
+    fields: IFormField[];
     isLoading: boolean;
     onCancel: () => void;
     onSubmit: (data: any, resetForm: () => void) => void;
@@ -55,9 +54,18 @@ export function GenericForm({ fields, isLoading, onSubmit, onCancel }: GenericFo
                             key={item.name}
                             name={item.name}
                             control={control}
-                            render={({ field }) => (
-                                <CustomTextField name={item.name} value={field.value} onChange={field.onChange} />
-                            )}
+                            render={({ field }) =>
+                                item.type === FieldType.Text ? (
+                                    <CustomTextField name={item.name} value={field.value} onChange={field.onChange} />
+                                ) : (
+                                    <CustomSelect
+                                        name={item.name}
+                                        value={field.value}
+                                        options={item.options || []}
+                                        onChange={field.onChange}
+                                    />
+                                )
+                            }
                         />
                     </Stack>
                 ))}
