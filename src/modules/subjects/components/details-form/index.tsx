@@ -20,10 +20,10 @@ export function DetailsForm({ item, teachers, onCancel }: DetailsFormProps) {
     const fields: IFormField[] = [
         { name: "name", label: "Nome", type: FieldType.Text, defaultValue: item?.name },
         {
-            name: "teacher",
+            name: "teacherId",
             label: "Professor",
             type: FieldType.Select,
-            defaultValue: item?.teacher?.name,
+            defaultValue: item?.teacher?.id,
             options: teachers,
         },
     ];
