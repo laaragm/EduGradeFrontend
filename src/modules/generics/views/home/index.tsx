@@ -19,7 +19,7 @@ export function HomeView() {
     return (
         <Page title="EduGrade">
             <Wrapper>
-                <Card sx={{ borderRadius: "20px", width: "30%", backgroundColor: "#fff" }}>
+                <Card sx={{ borderRadius: "20px", width: "40%" }}>
                     <Stack direction="column" alignItems="center" justifyContent="center" spacing={7} p={10}>
                         <Typography variant="h2">EduGrade</Typography>
                         <Typography variant="body2">
