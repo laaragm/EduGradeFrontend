@@ -1,26 +1,24 @@
 import { useState } from "react";
 
-import { IStudent } from "@/modules/students/models";
+import { ITeacher } from "@/modules/teachers/models";
 import { handleResponse } from "@/modules/shared/utils";
 import { GenericForm } from "@/modules/shared/components";
-import { useCreateStudent, useUpdateStudent } from "@/modules/students/hooks";
+import { useCreateTeacher, useUpdateTeacher } from "@/modules/teachers/hooks";
 
 interface DetailsFormProps {
-    item?: IStudent;
+    item?: ITeacher;
     onCancel: () => void;
 }
 
 export function DetailsForm({ item, onCancel }: DetailsFormProps) {
-    const { mutation: create } = useCreateStudent();
-    const { mutation: update } = useUpdateStudent();
+    const { mutation: create } = useCreateTeacher();
+    const { mutation: update } = useUpdateTeacher();
     const [isLoading, setIsLoading] = useState(false);
 
     const fields = [
         { name: "name", label: "Nome", defaultValue: item?.name },
-        { name: "email", label: "Email", defaultValue: item?.email },
-        { name: "phoneNumber", label: "Telefone", defaultValue: item?.phoneNumber },
-        { name: "registrationNumber", label: "Matrícula", defaultValue: item?.registrationNumber },
-        { name: "address", label: "Endereço", defaultValue: item?.address },
+        { name: "cpf", label: "CPF", defaultValue: item?.cpf },
+        { name: "expertiseAreas", label: "Áreas de atuação", defaultValue: item?.expertiseAreas },
     ];
 
     const onSubmit = async (data: any, reset: () => void) => {
@@ -28,11 +26,11 @@ export function DetailsForm({ item, onCancel }: DetailsFormProps) {
         let response;
         const isUpdateOperation = !!item;
         if (isUpdateOperation) {
-            const studentToUpdate = { ...data, id: item.id };
-            response = await update.mutateAsync(studentToUpdate);
+            const itemToUpdate = { ...data, id: item.id };
+            response = await update.mutateAsync(itemToUpdate);
         } else {
-            const studentToRegister = { ...data, id: 0 };
-            response = await create.mutateAsync(studentToRegister);
+            const itemToRegister = { ...data, id: 0 };
+            response = await create.mutateAsync(itemToRegister);
         }
         if (!response.error) {
             onCancel();

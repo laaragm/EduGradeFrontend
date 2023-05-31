@@ -50,7 +50,7 @@ export function StudentsView() {
         <Page title="EduGrade">
             <Stack justifyContent="space-between" alignItems="center" direction="row" width="70%">
                 <Typography variant="h4">Lista de Estudantes</Typography>
-                <CustomButton onClick={handleAddRequest}>Adicionar novo estudante</CustomButton>
+                <CustomButton onClick={handleAddRequest}>Adicionar estudante</CustomButton>
             </Stack>
             <Wrapper mt={5}>
                 {isLoadingData ? (
