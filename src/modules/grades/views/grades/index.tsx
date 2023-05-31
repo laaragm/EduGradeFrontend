@@ -27,7 +27,7 @@ const transformData = (data: IGrade[]) => {
 };
 
 export function GradesView() {
-    const tableHead = ["Identificador", "Nota", "Estudante", "Disciplina"];
+    const tableHead = ["Identificador", "Nota", "Estudante", "Disciplina", ""];
     const { data, isLoading: isLoadingData } = useGrades();
     const { data: students } = useStudents();
     const { data: subjects } = useSubjects();
