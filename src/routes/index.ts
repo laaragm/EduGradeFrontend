@@ -1,4 +1,8 @@
 export const PATHS = {
+    home: {
+        name: "Home",
+        route: "/",
+    },
     subjects: {
         name: "Disciplinas",
         route: "/disciplines",

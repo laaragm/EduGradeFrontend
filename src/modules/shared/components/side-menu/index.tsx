@@ -14,7 +14,9 @@ export function SideMenu() {
 
     return (
         <SideMenuContainer>
-            <Typography variant="h3">EduGrade</Typography>
+            <Typography sx={{ cursor: "pointer" }} variant="h3" onClick={() => handleRedirect(PATHS.home.route)}>
+                EduGrade
+            </Typography>
             <Stack spacing={5} alignItems="center" justifyContent="center" height="100%">
                 <CustomLink onClick={() => handleRedirect(PATHS.students.route)}>Estudantes</CustomLink>
                 <CustomLink onClick={() => handleRedirect(PATHS.teachers.route)}>Professores</CustomLink>
