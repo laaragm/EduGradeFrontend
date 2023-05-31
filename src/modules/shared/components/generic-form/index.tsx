@@ -4,12 +4,9 @@ import Typography from "@mui/material/Typography";
 import { useForm, Controller } from "react-hook-form";
 
 import { CustomButton } from "../custom-button";
+import { CustomSelect } from "../custom-select";
 import { CustomTextField } from "../custom-text-field";
 import { FieldType, IFormField } from "@/modules/shared/models";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import TextField from "@mui/material/TextField";
-import { CustomSelect } from "../custom-select";
 
 interface Form {
     [key: string]: string | number | boolean;

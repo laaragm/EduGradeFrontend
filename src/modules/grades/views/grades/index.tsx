@@ -4,36 +4,39 @@ import Typography from "@mui/material/Typography";
 import LinearProgress from "@mui/material/LinearProgress";
 
 import { useDataTable } from "@/modules/shared/hooks";
-import { useTeachers } from "@/modules/teachers/hooks";
-import { DetailsForm } from "@/modules/subjects/components";
-import { IDataTableSubject, ISubject } from "@/modules/subjects/models";
-import { useDeleteSubject, useSubjects } from "@/modules/subjects/hooks";
+import { useStudents } from "@/modules/students/hooks";
+import { useSubjects } from "@/modules/subjects/hooks";
+import { DetailsForm } from "@/modules/grades/components";
+import { IDataTableGrade, IGrade } from "@/modules/grades/models";
+import { useDeleteGrade, useGrades } from "@/modules/grades/hooks";
 import { CustomButton, CustomDialog, CustomTable, Page } from "@/modules/shared/components";
 import { TableWrapper, Wrapper } from "./styles";
 
-const transformData = (data: ISubject[]) => {
-    const items: IDataTableSubject[] =
+const transformData = (data: IGrade[]) => {
+    const items: IDataTableGrade[] =
         data instanceof Array
             ? data.map((item) => ({
                   id: item.id,
-                  name: item.name,
-                  teacherName: item.teacher?.name,
+                  value: item.value,
+                  studentName: item.student?.name,
+                  subjectName: item.subject?.name,
               }))
             : [];
 
     return items;
 };
 
-export function DisciplinesView() {
-    const tableHead = ["Identificador", "Nome", "Professor", ""];
-    const { data, isLoading: isLoadingData } = useSubjects();
-    const { data: teachers } = useTeachers();
+export function GradesView() {
+    const tableHead = ["Identificador", "Nota", "Estudante", "Disciplina"];
+    const { data, isLoading: isLoadingData } = useGrades();
+    const { data: students } = useStudents();
+    const { data: subjects } = useSubjects();
     const dataTableBody = useMemo(() => {
         if (!isLoadingData && !!data?.result?.data) {
             return transformData(data.result.data);
         }
     }, [isLoadingData, data]);
-    const { mutation: exclude } = useDeleteSubject();
+    const { mutation: exclude } = useDeleteGrade();
     const {
         confirmationDialog,
         isLoading,
@@ -50,8 +53,8 @@ export function DisciplinesView() {
     return (
         <Page title="EduGrade">
             <Stack justifyContent="space-between" alignItems="center" direction="row" width="70%">
-                <Typography variant="h4">Lista de Disciplinas</Typography>
-                <CustomButton onClick={handleAddRequest}>Adicionar disciplina</CustomButton>
+                <Typography variant="h4">Notas dos Estudantes</Typography>
+                <CustomButton onClick={handleAddRequest}>Adicionar nota</CustomButton>
             </Stack>
             <Wrapper mt={5}>
                 {isLoadingData ? (
@@ -66,14 +69,14 @@ export function DisciplinesView() {
                                 onDelete={handleDeleteRequest}
                             />
                         ) : (
-                            <Typography>Não existem disciplinas cadastradas</Typography>
+                            <Typography>Não existem notas cadastradas</Typography>
                         )}
                     </TableWrapper>
                 )}
 
                 <CustomDialog
-                    title="Exclusão de disciplina"
-                    text="Você realmente deseja excluir esta disciplina?"
+                    title="Exclusão de nota"
+                    text="Você realmente deseja excluir esta nota?"
                     isOpen={confirmationDialog}
                     onClose={handleCancel}
                     actions={
@@ -95,13 +98,17 @@ export function DisciplinesView() {
                 />
 
                 <CustomDialog
-                    title="Cadastro de disciplina"
+                    title="Cadastro de nota"
                     text="Preencha os campos abaixo e em seguida salve as alterações"
                     isOpen={addNewItem}
                     onClose={handleCancel}
                     actions={
                         <Stack width="100%">
-                            <DetailsForm onCancel={handleCancel} teachers={teachers?.result?.data || []} />
+                            <DetailsForm
+                                onCancel={handleCancel}
+                                subjects={subjects?.result?.data || []}
+                                students={students?.result?.data || []}
+                            />
                         </Stack>
                     }
                 />
@@ -114,7 +121,8 @@ export function DisciplinesView() {
                     actions={
                         <Stack width="100%">
                             <DetailsForm
-                                teachers={teachers?.result?.data || []}
+                                subjects={subjects?.result?.data || []}
+                                students={students?.result?.data || []}
                                 onCancel={handleCancel}
                                 item={
                                     !!data?.result?.data
