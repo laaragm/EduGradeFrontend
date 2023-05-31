@@ -10,14 +10,6 @@ interface CustomSelectProps {
     onChange: (value: any) => void;
 }
 
-const MenuStyles: Partial<MenuProps> = {
-    PaperProps: {
-        sx: {
-            fontSize: "1rem",
-        },
-    },
-};
-
 export function CustomSelect({ name, value, options, onChange }: CustomSelectProps) {
     return (
         <StyledSelect
