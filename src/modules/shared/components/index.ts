@@ -7,3 +7,4 @@ export * from "./loading-screen";
 export * from "./page";
 export * from "./scroll-to-top";
 export * from "./custom-text-field";
+export * from "./side-menu";

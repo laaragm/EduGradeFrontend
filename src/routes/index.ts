@@ -1,7 +1,7 @@
 export const PATHS = {
     subjects: {
         name: "Disciplinas",
-        route: "/subjects",
+        route: "/disciplines",
     },
     teachers: {
         name: "Professores",

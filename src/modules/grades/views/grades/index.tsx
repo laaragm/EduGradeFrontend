@@ -9,7 +9,7 @@ import { useSubjects } from "@/modules/subjects/hooks";
 import { DetailsForm } from "@/modules/grades/components";
 import { IDataTableGrade, IGrade } from "@/modules/grades/models";
 import { useDeleteGrade, useGrades } from "@/modules/grades/hooks";
-import { CustomButton, CustomDialog, CustomTable, Page } from "@/modules/shared/components";
+import { CustomButton, CustomDialog, CustomTable, Page, SideMenu } from "@/modules/shared/components";
 import { TableWrapper, Wrapper } from "./styles";
 
 const transformData = (data: IGrade[]) => {
@@ -52,88 +52,91 @@ export function GradesView() {
 
     return (
         <Page title="EduGrade">
-            <Stack justifyContent="space-between" alignItems="center" direction="row" width="70%">
-                <Typography variant="h4">Notas dos Estudantes</Typography>
-                <CustomButton onClick={handleAddRequest}>Adicionar nota</CustomButton>
+            <Stack direction="row" width="100%" height="100%">
+                <SideMenu />
+                <Wrapper>
+                    <Stack justifyContent="space-between" alignItems="center" direction="row" width="70%" mb={5}>
+                        <Typography variant="h4">Notas dos Estudantes</Typography>
+                        <CustomButton onClick={handleAddRequest}>Adicionar nota</CustomButton>
+                    </Stack>
+                    {isLoadingData ? (
+                        <LinearProgress />
+                    ) : (
+                        <TableWrapper>
+                            {!!dataTableBody ? (
+                                <CustomTable
+                                    header={tableHead}
+                                    body={dataTableBody}
+                                    onEdit={handleEditRequest}
+                                    onDelete={handleDeleteRequest}
+                                />
+                            ) : (
+                                <Typography>Não existem notas cadastradas</Typography>
+                            )}
+                        </TableWrapper>
+                    )}
+
+                    <CustomDialog
+                        title="Exclusão de nota"
+                        text="Você realmente deseja excluir esta nota?"
+                        isOpen={confirmationDialog}
+                        onClose={handleCancel}
+                        actions={
+                            <Stack
+                                direction="row"
+                                width="100%"
+                                alignItems="center"
+                                justifyContent="flex-end"
+                                spacing={1}
+                                m={2}>
+                                <CustomButton size="small" onClick={handleCancel}>
+                                    Cancelar
+                                </CustomButton>
+                                <CustomButton size="small" color="secondary" onClick={handleDelete} loading={isLoading}>
+                                    Excluir
+                                </CustomButton>
+                            </Stack>
+                        }
+                    />
+
+                    <CustomDialog
+                        title="Cadastro de nota"
+                        text="Preencha os campos abaixo e em seguida salve as alterações"
+                        isOpen={addNewItem}
+                        onClose={handleCancel}
+                        actions={
+                            <Stack width="100%">
+                                <DetailsForm
+                                    onCancel={handleCancel}
+                                    subjects={subjects?.result?.data || []}
+                                    students={students?.result?.data || []}
+                                />
+                            </Stack>
+                        }
+                    />
+
+                    <CustomDialog
+                        title="Edição de disciplina"
+                        text="Preencha os campos abaixo e em seguida salve as alterações"
+                        isOpen={updateItem}
+                        onClose={handleCancel}
+                        actions={
+                            <Stack width="100%">
+                                <DetailsForm
+                                    subjects={subjects?.result?.data || []}
+                                    students={students?.result?.data || []}
+                                    onCancel={handleCancel}
+                                    item={
+                                        !!data?.result?.data
+                                            ? data.result.data.find((x) => x.id === currentItemId)
+                                            : undefined
+                                    }
+                                />
+                            </Stack>
+                        }
+                    />
+                </Wrapper>
             </Stack>
-            <Wrapper mt={5}>
-                {isLoadingData ? (
-                    <LinearProgress />
-                ) : (
-                    <TableWrapper>
-                        {!!dataTableBody ? (
-                            <CustomTable
-                                header={tableHead}
-                                body={dataTableBody}
-                                onEdit={handleEditRequest}
-                                onDelete={handleDeleteRequest}
-                            />
-                        ) : (
-                            <Typography>Não existem notas cadastradas</Typography>
-                        )}
-                    </TableWrapper>
-                )}
-
-                <CustomDialog
-                    title="Exclusão de nota"
-                    text="Você realmente deseja excluir esta nota?"
-                    isOpen={confirmationDialog}
-                    onClose={handleCancel}
-                    actions={
-                        <Stack
-                            direction="row"
-                            width="100%"
-                            alignItems="center"
-                            justifyContent="flex-end"
-                            spacing={1}
-                            m={2}>
-                            <CustomButton size="small" onClick={handleCancel}>
-                                Cancelar
-                            </CustomButton>
-                            <CustomButton size="small" color="secondary" onClick={handleDelete} loading={isLoading}>
-                                Excluir
-                            </CustomButton>
-                        </Stack>
-                    }
-                />
-
-                <CustomDialog
-                    title="Cadastro de nota"
-                    text="Preencha os campos abaixo e em seguida salve as alterações"
-                    isOpen={addNewItem}
-                    onClose={handleCancel}
-                    actions={
-                        <Stack width="100%">
-                            <DetailsForm
-                                onCancel={handleCancel}
-                                subjects={subjects?.result?.data || []}
-                                students={students?.result?.data || []}
-                            />
-                        </Stack>
-                    }
-                />
-
-                <CustomDialog
-                    title="Edição de disciplina"
-                    text="Preencha os campos abaixo e em seguida salve as alterações"
-                    isOpen={updateItem}
-                    onClose={handleCancel}
-                    actions={
-                        <Stack width="100%">
-                            <DetailsForm
-                                subjects={subjects?.result?.data || []}
-                                students={students?.result?.data || []}
-                                onCancel={handleCancel}
-                                item={
-                                    !!data?.result?.data
-                                        ? data.result.data.find((x) => x.id === currentItemId)
-                                        : undefined
-                                }
-                            />
-                        </Stack>
-                    }
-                />
-            </Wrapper>
         </Page>
     );
 }
