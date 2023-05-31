@@ -1,21 +1,21 @@
 export const palette = {
     primary: {
-        main: "#92A7FC",
-        contrastText: "#0a0b29",
+        main: "#1dedca",
+        contrastText: "#000502",
     },
     secondary: {
-        main: "#FEAF00",
-        contrastText: "#0a0b29",
+        main: "#ecf8fd",
+        contrastText: "#000502",
     },
     common: {
         black: "#000000",
-        white: "#FFFFFF",
+        white: "#ffffff",
     },
     background: {
-        default: "#F2F6EF",
+        default: "#fafffc",
     },
     text: {
-        primary: "#0a0b29",
+        primary: "#000000",
         secondary: "#ffffff",
     },
     contrastThreshold: 3,

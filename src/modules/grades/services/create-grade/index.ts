@@ -5,7 +5,7 @@ import { IGrade } from "@/modules/grades/models";
 export async function CreateGrade(grade: IGrade): Promise<IServiceResponse<string>> {
     const route = "/grades";
     const body = JSON.stringify(grade);
-    const defaultErrorMessage = "Could not create grade. Please try again later.";
+    const defaultErrorMessage = "Não foi possível realizar o cadastro. Tente novamente mais tarde.";
     const result = await Create<string>({ route, defaultErrorMessage, body });
 
     return result;

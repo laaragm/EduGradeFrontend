@@ -8,7 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { TransitionProps } from "@mui/material/transitions";
-import DialogContentText from "@mui/material/DialogContentText";
+import { useTheme } from "@mui/material/styles";
 
 const Transition = forwardRef(function Transition(
     props: TransitionProps & {
@@ -40,6 +40,8 @@ export function CustomDialog({
     actions,
     children,
 }: CustomDialogProps) {
+    const theme = useTheme();
+
     const handleClose = () => {
         onClose();
     };

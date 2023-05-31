@@ -4,7 +4,7 @@ import { ITeacher } from "@/modules/teachers/models";
 
 export async function GetAllTeachers(): Promise<IServiceResponse<ITeacher[]>> {
     const route = "/teachers";
-    const defaultErrorMessage = "Could not retrieve teachers. Please try again later.";
+    const defaultErrorMessage = "Não foi possível recuperar os dados. Tente novamente mais tarde.";
     const result = await Get<ITeacher[]>({ route, defaultErrorMessage });
 
     return result;

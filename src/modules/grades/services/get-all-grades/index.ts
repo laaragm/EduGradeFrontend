@@ -4,7 +4,7 @@ import { IGrade } from "@/modules/grades/models";
 
 export async function GetAllGrades(): Promise<IServiceResponse<IGrade[]>> {
     const route = "/grades";
-    const defaultErrorMessage = "Could not retrieve grades. Please try again later.";
+    const defaultErrorMessage = "Não foi possível recuperar os dados. Tente novamente mais tarde.";
     const result = await Get<IGrade[]>({ route, defaultErrorMessage });
 
     return result;

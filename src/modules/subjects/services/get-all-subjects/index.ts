@@ -4,7 +4,7 @@ import { ISubject } from "@/modules/subjects/models";
 
 export async function GetAllSubjects(): Promise<IServiceResponse<ISubject[]>> {
     const route = "/subjects";
-    const defaultErrorMessage = "Could not retrieve subjects. Please try again later.";
+    const defaultErrorMessage = "Não foi possível recuperar os dados. Tente novamente mais tarde.";
     const result = await Get<ISubject[]>({ route, defaultErrorMessage });
 
     return result;

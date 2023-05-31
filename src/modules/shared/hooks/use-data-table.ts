@@ -6,16 +6,17 @@ import { IServiceResponse } from "../models";
 
 export function useDataTable(deleteMutation: UseMutationResult<IServiceResponse<string>, unknown, number, unknown>) {
     const [confirmationDialog, setConfirmationDialog] = useState(false);
+    const [addNewItem, setAddNewItem] = useState(false);
+    const [updateItem, setUpdateItem] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [currentItemId, setCurrentItemId] = useState<number | null>(null);
 
-    const handleEdit = (id: number) => {
-        console.log("edit: ", id);
+    const handleEditRequest = (id: number) => {
         setCurrentItemId(id);
+        setUpdateItem(true);
     };
 
     const handleDeleteRequest = (id: number) => {
-        console.log("delete: ", id);
         setConfirmationDialog(true);
         setCurrentItemId(id);
     };
@@ -32,7 +33,13 @@ export function useDataTable(deleteMutation: UseMutationResult<IServiceResponse<
 
     const handleCancel = () => {
         setConfirmationDialog(false);
+        setAddNewItem(false);
+        setUpdateItem(false);
         setCurrentItemId(null);
+    };
+
+    const handleAddRequest = () => {
+        setAddNewItem(true);
     };
 
     return {
@@ -40,8 +47,11 @@ export function useDataTable(deleteMutation: UseMutationResult<IServiceResponse<
         isLoading,
         currentItemId,
         handleDelete,
-        handleEdit,
+        handleEditRequest,
         handleDeleteRequest,
         handleCancel,
+        handleAddRequest,
+        addNewItem,
+        updateItem,
     };
 }
